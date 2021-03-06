@@ -3,7 +3,7 @@ package controller;
 public class ThreadSapo extends Thread{
 	
 	private int sapo;
-	private int posicao;
+	static int posicao = 0;
 	private int maximopulo; 		//tamanho maximo para cada pulo
 	private int minimopulo;  		//tamanho minimo do pulo
 	private int totalpulo;			//total de pulos
@@ -12,7 +12,6 @@ public class ThreadSapo extends Thread{
 	//Método Construtor
 	public ThreadSapo(int numero){
 		this.sapo = numero;
-		this.posicao = 0;
 		this.maximopulo = 20;
 		this.minimopulo = 5;
 		this.totalpulo = 0;
@@ -21,36 +20,22 @@ public class ThreadSapo extends Thread{
 	
 	@Override
 	public void run() {
-		int classificado = 0;
-		int tempo = this.sapo * 1000;
-		InicioCorrida(classificado, tempo);
+		InicioCorrida();
 				
 	}
 	
-	private void InicioCorrida(int classificado, int tempo){
-//		StringBuffer buffer = new StringBuffer();
-		do{
+	private void InicioCorrida(){
+		String classificado[] = new String [5];
+		StringBuffer buffer = new StringBuffer();
+		while(this.totalpulo < this.maximadistancia ){
 			int salto = (int) ((Math.random() * 16 ) + 5);
 			this.totalpulo += salto;
 			System.out.println("O sapo " + this.sapo + "\tTamanho do pulo: " + salto + "m \tDistância percorrida: "
 								+ (this.totalpulo) + "m");
-		} while(this.totalpulo < this.maximadistancia );
+		}
+		posicao++;
+		System.out.println("\n================== Sapo " + this.sapo + " chegou em " + posicao + "º lugar ==================\n");
 		
-//		try {
-//			sleep(tempo);
-//			this.posicao = classificado++;
-//			buffer.append("Sapo ");
-//			buffer.append(this.sapo);
-//			buffer.append(" - ");
-//			buffer.append(this.posicao);
-//			buffer.append("º lugar");
-//			
-//			if(classificado == 1){
-//				System.out.println(buffer);
-//			}
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
 		
 	}			
 }
